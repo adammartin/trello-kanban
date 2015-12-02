@@ -1,0 +1,150 @@
+# Cop supports --auto-correct.
+Lint/UnusedBlockArgument:
+  Exclude:
+
+Lint/UselessAccessModifier:
+  Exclude:
+
+# Configuration parameters: AllowURI, URISchemes.
+Metrics/LineLength:
+  Max: 220
+
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles, ProceduralMethods, FunctionalMethods, IgnoredMethods.
+Style/BlockDelimiters:
+  Enabled: false
+
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/BracesAroundHashParameters:
+  Exclude:
+
+Style/Documentation:
+  Enabled: false
+
+Style/DoubleNegation:
+  Exclude:
+
+# Cop supports --auto-correct.
+Style/EmptyLinesAroundAccessModifier:
+  Enabled: true
+
+# Cop supports --auto-correct.
+# Configuration parameters: AllowForAlignment.
+Style/ExtraSpacing:
+  Exclude:
+
+# Cop supports --auto-correct.
+# Configuration parameters: SupportedStyles, UseHashRocketsWithSymbolValues.
+Style/HashSyntax:
+  EnforcedStyle: hash_rockets
+
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/IndentationConsistency:
+  Exclude:
+
+# Cop supports --auto-correct.
+# Configuration parameters: Width.
+Style/IndentationWidth:
+  Exclude:
+
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/MethodDefParentheses:
+  Enabled: false
+
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/MethodName:
+  Enabled: true
+
+# Cop supports --auto-correct.
+Style/NumericLiterals:
+  MinDigits: 11
+
+# Configuration parameters: NamePrefix, NamePrefixBlacklist.
+Style/PredicateName:
+  Exclude:
+
+# Configuration parameters: SupportedStyles.
+Style/RaiseArgs:
+  EnforcedStyle: compact
+
+# Cop supports --auto-correct.
+Style/RedundantBegin:
+  Exclude:
+
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/SignalException:
+  Exclude:
+
+# Cop supports --auto-correct.
+Style/SpaceAfterComma:
+  Exclude:
+
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyleInsidePipes, SupportedStyles.
+Style/SpaceAroundBlockParameters:
+  Exclude:
+
+# Cop supports --auto-correct.
+# Configuration parameters: MultiSpaceAllowedForOperators.
+Style/SpaceAroundOperators:
+  AutoCorrect: true
+  Exclude:
+
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/SpaceBeforeBlockBraces:
+  AutoCorrect: true
+  Enabled: true
+
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles, EnforcedStyleForEmptyBraces, SpaceBeforeBlockParameters.
+Style/SpaceInsideBlockBraces:
+  AutoCorrect: true
+  Enabled: true
+
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces, SupportedStyles.
+Style/SpaceInsideHashLiteralBraces:
+  AutoCorrect: true
+  Enabled: true
+
+# Cop supports --auto-correct.
+Style/SpaceInsideParens:
+  AutoCorrect: true
+  Exclude:
+#    - 'spec/header/custom_query_header_spec.rb'
+
+# Cop supports --auto-correct.
+Style/SpecialGlobalVars:
+  Exclude:
+    - 'azure-documentdb-sdk.gemspec'
+
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/StringLiterals:
+  AutoCorrect: true
+  Enabled: true
+
+# Cop supports --auto-correct.
+# Configuration parameters: IgnoredMethods.
+Style/SymbolProc:
+  Exclude:
+
+# Cop supports --auto-correct.
+Style/Tab:
+  Exclude:
+
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/TrailingBlankLines:
+  AutoCorrect: true
+  Exclude:
+
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/VariableName:
+  Enabled: true
+  Exclude:
