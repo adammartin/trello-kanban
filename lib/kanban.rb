@@ -8,22 +8,27 @@ configure do
   set :config, YConfig.new(config_dir).parse("config.yml")
 end
 
-def add_array(a,b)
-  a.zip(b).map do | pair | pair.reduce(&:+) end
+def time
+  Array.new(7) do | day | { "name" => ((Time.now + day * 86500).strftime "%Y-%m-%d") } end
 end
 
-def dataset config_key, label, data, previous_dataset=nil
-  data = add_array data, previous_dataset[:data] if previous_dataset
-  info = { :data => data, :label => label }
-  settings.config[config_key].merge info
+def values vals
+  vals.map { | value | { "value" => value } }
+end
+
+def dataset category, vals
+  vals = values vals
+  result = vals.zip(time).map do | h1, h2 | h1.merge h2 end
+  { category => result }
 end
 
 get '/hi' do
-  done = dataset "done", "Done", [0, 5, 9, 16, 22, 25, 29]
-  in_progress = dataset "in_progress", "In Progress", [1, 1, 2, 1, 2, 1, 1], done
-  ready = dataset "ready", "Ready", [6, 7, 6, 8, 7, 7, 6], in_progress
-  backlog = dataset "backlog", "Backlog", [20, 22, 25, 29, 31, 35, 38], backlog
-  @labels = Array.new(7) { | day | (Time.now + day * 86500).strftime "%Y-%m-%d" }
-  @datasets = [backlog, ready, in_progress, done].to_json
+  done = dataset "Done", [0, 5, 9, 16, 22, 25, 29]
+  in_progress = dataset "In Progress", [1, 1, 2, 1, 2, 1, 1]
+  ready = dataset "Ready", [6, 7, 6, 8, 7, 7, 6]
+  backlog = dataset "Backlog", [20, 22, 25, 29, 31, 35, 38]
+  dataset = { "dataset" => done.merge(in_progress).merge(ready).merge(backlog) }
+  graphdef = { "categories" => dataset["dataset"].keys }.merge(dataset)
+  @graphdef = graphdef.to_json
   erb :metrics
 end

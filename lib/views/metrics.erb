@@ -1,35 +1,26 @@
 <html>
   <head>
     <title>Kanban Metrics</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/uvCharts/1.0.0/uvcharts.min.js"></script>
   </head>
   <body>
-    <div>
-      <section>
-        <article>
-          <canvas id="myChart" width="800" height="400">
-          </canvas>
-        </article>
-      </section>
-    </div>
+    <div id="uv-div"></div>
     <script type="text/javascript">
-
       $(document).ready(function() {
-      init();
+         init();
       });
 
       function init() {
-      var ctx = $("#myChart").get(0).getContext("2d");
-
-      var data = {
-      labels: <%= @labels %>,
-      datasets: <%= @datasets %>
+         var config = {
+            graph: { orientation: 'Vertical' },
+            dimension: { width: 800 },
+            tooltip: { show: true },
+            area: { interpolation: "monotone" }
+         }
+         var chart = uv.chart('StackedArea', <%=@graphdef%>, config);
       }
-
-      var myNewChart = new Chart(ctx).Line(data);
-      }
-
     </script>
   </body>
 </html>
