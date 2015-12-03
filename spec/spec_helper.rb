@@ -3,12 +3,13 @@ require 'simplecov'
 require 'json'
 
 CONFIG = {
-  "member" => "MEMBER_NAME",
-  "key" => "KEY_VALUE",
-  "secret" => "SECRET_VALUE",
-  "token" => "TOKEN_VALUE",
-  "datadir" => "SOME_DATA_DIR",
-  "graphdef" => { "some" => "hash_values" }
+  'member' => 'MEMBER_NAME',
+  'key' => 'KEY_VALUE',
+  'secret' => 'SECRET_VALUE',
+  'token' => 'TOKEN_VALUE',
+  'datadir' => 'SOME_DATA_DIR',
+  'board' => 'Operations Automation Backlog',
+  'graphdef' => { 'some' => 'hash_values' }
 }
 
 def no_methods_called_on_object a_test_double

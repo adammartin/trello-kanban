@@ -4,20 +4,20 @@ require 'yconfig'
 
 configure do
   pwd = File.dirname(File.expand_path(__FILE__))
-  config_dir = File.join pwd, "..", "config"
-  set :config, YConfig.new(config_dir).parse("config.yml")
+  config_dir = File.join pwd, '..', 'config'
+  set :config, YConfig.new(config_dir).parse('config.yml')
 end
 
 def time
-  Array.new(7) do | day | { "date" => ((Time.now + day * 86500).strftime "%Y-%m-%d") } end
+  Array.new(7) do |day| { 'date' => ((Time.now + day * 86500).strftime '%Y-%m-%d') } end
 end
 
 def values key, vals
-  vals.map { | value | { key => value } }
+  vals.map { |value| { key => value } }
 end
 
 def merge_array_o_hashes a1, a2
-  a1.zip(a2).map do | h1, h2 | h1.merge h2 end
+  a1.zip(a2).map do |h1, h2| h1.merge h2 end
 end
 
 def combine_all time, done, in_progress, ready, backlog
@@ -37,11 +37,11 @@ def data categories
 end
 
 get '/hi' do
-  categories = ["Done", "In Progress", "Ready", "Backlog"]
-  graphdef = settings.config["graphdef"]
-  graphdef["data"] =  data categories
-  graphdef["ykeys"] = categories
-  graphdef["labels"] = categories
+  categories = ['Done', 'In Progress', 'Ready', 'Backlog']
+  graphdef = settings.config['graphdef']
+  graphdef['data'] =  data categories
+  graphdef['ykeys'] = categories
+  graphdef['labels'] = categories
   @graphdef = graphdef.to_json
   erb :metrics
 end
