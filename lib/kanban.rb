@@ -9,26 +9,41 @@ configure do
 end
 
 def time
-  Array.new(7) do | day | { "name" => ((Time.now + day * 86500).strftime "%Y-%m-%d") } end
+  Array.new(7) do | day | { "date" => ((Time.now + day * 86500).strftime "%Y-%m-%d") } end
 end
 
-def values vals
-  vals.map { | value | { "value" => value } }
+def values key, vals
+  vals.map { | value | { key => value } }
 end
 
-def dataset category, vals
-  vals = values vals
-  result = vals.zip(time).map do | h1, h2 | h1.merge h2 end
-  { category => result }
+def merge_array_o_hashes a1, a2
+  a1.zip(a2).map do | h1, h2 | h1.merge h2 end
+end
+
+def combine_all time, done, in_progress, ready, backlog
+  a = merge_array_o_hashes time, done
+  a = merge_array_o_hashes a, in_progress
+  a = merge_array_o_hashes a, ready
+  merge_array_o_hashes a, backlog
 end
 
 get '/hi' do
-  done = dataset "Done", [0, 5, 9, 16, 22, 25, 29]
-  in_progress = dataset "In Progress", [1, 1, 2, 1, 2, 1, 1]
-  ready = dataset "Ready", [6, 7, 6, 8, 7, 7, 6]
-  backlog = dataset "Backlog", [20, 22, 25, 29, 31, 35, 38]
-  dataset = { "dataset" => done.merge(in_progress).merge(ready).merge(backlog) }
-  graphdef = { "categories" => dataset["dataset"].keys }.merge(dataset)
+  time_vals = time
+  categories = ["Done", "In Progress", "Ready", "Backlog"]
+  done = values categories[0], [0, 5, 9, 16, 22, 25, 29]
+  in_progress = values categories[1], [1, 1, 2, 1, 2, 1, 1]
+  ready = values categories[2], [6, 7, 6, 8, 7, 7, 6]
+  backlog = values categories[3], [20, 22, 25, 29, 31, 35, 38]
+  graphdef = {
+    "element" => 'uv-div',
+    "data" => combine_all(time_vals, done, in_progress, ready, backlog),
+    "xkey" => "date",
+    "ykeys" => categories,
+    "labels" => categories,
+    "hideHover" => 'auto',
+    "resize" => true,
+    "lineColors" => ['green', 'yellow', 'grey', 'blue']
+  }
   @graphdef = graphdef.to_json
   erb :metrics
 end

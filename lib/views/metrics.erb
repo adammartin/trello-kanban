@@ -1,9 +1,15 @@
 <html>
   <head>
     <title>Kanban Metrics</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/uvCharts/1.0.0/uvcharts.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.4/raphael-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <style media="screen" type="text/css">
+      .morris-hover{position:absolute;z-index:1000;}
+      .morris-hover.morris-default-style{border-radius:10px;padding:6px;color:#666;background:rgba(255, 255, 255, 0.8);border:solid 2px rgba(230, 230, 230, 0.8);font-family:sans-serif;font-size:12px;text-align:center;}
+      .morris-hover.morris-default-style .morris-hover-row-label{font-weight:bold;margin:0.25em 0;}
+      .morris-hover.morris-default-style .morris-hover-point{white-space:nowrap;margin:0.1em 0;}
+    </style>
   </head>
   <body>
     <div id="uv-div"></div>
@@ -13,13 +19,9 @@
       });
 
       function init() {
-         var config = {
-            graph: { orientation: 'Vertical' },
-            dimension: { width: 800 },
-            tooltip: { show: true },
-            area: { interpolation: "monotone" }
-         }
-         var chart = uv.chart('StackedArea', <%=@graphdef%>, config);
+
+      Morris.Area(<%=@graphdef%>);
+
       }
     </script>
   </body>
