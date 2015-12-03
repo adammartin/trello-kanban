@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <title>Kanban Metrics</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div>
+      <section>
+        <article>
+          <canvas id="myChart" width="800" height="400">
+          </canvas>
+        </article>
+      </section>
+    </div>
+    <script type="text/javascript">
+
+      $(document).ready(function() {
+      init();
+      });
+
+      function init() {
+      var ctx = $("#myChart").get(0).getContext("2d");
+
+      var data = {
+      labels: <%= @labels %>,
+      datasets: <%= @datasets %>
+      }
+
+      var myNewChart = new Chart(ctx).Line(data);
+      }
+
+    </script>
+  </body>
+</html>
