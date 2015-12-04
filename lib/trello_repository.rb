@@ -1,4 +1,4 @@
-require 'card_created_date'
+require_relative 'card_created_date'
 
 class TrelloRepository
   def initialize member, config
