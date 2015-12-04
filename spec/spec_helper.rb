@@ -9,6 +9,7 @@ CONFIG = {
   'token' => 'TOKEN_VALUE',
   'datadir' => 'SOME_DATA_DIR',
   'board' => 'Operations Automation Backlog',
+  'exclude_columns' => ['exclude_1'],
   'graphdef' => { 'some' => 'hash_values' }
 }
 

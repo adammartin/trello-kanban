@@ -1,11 +1,23 @@
 require 'sinatra'
 require 'json'
 require 'yconfig'
+require 'fileutils'
+require 'trello'
+require_relative 'local_repository'
+require_relative 'trello_user_factory'
+require_relative 'trello_repository'
+require_relative 'summary_controller'
 
 configure do
   pwd = File.dirname(File.expand_path(__FILE__))
   config_dir = File.join pwd, '..', 'config'
-  set :config, YConfig.new(config_dir).parse('config.yml')
+  config = YConfig.new(config_dir).parse('config.yml').freeze
+  member = TrelloUserFactory.new.generate config, Trello
+  lrepo = LocalRepository.new config, FileUtils
+  trepo = TrelloRepository.new member, config
+  sum_controller = SummaryController.new lrepo, trepo
+  set :config, config
+  set :sum_controller, sum_controller
 end
 
 def time
@@ -36,12 +48,25 @@ def data categories
   combine_all(time_vals, done, in_progress, ready, backlog)
 end
 
-get '/hi' do
+def graphdef
   categories = ['Done', 'In Progress', 'Ready', 'Backlog']
   graphdef = settings.config['graphdef']
   graphdef['data'] =  data categories
   graphdef['ykeys'] = categories
   graphdef['labels'] = categories
-  @graphdef = graphdef.to_json
+  graphdef.to_json
+end
+
+get '/hi' do
+  @graphdef = graphdef
   erb :metrics
+end
+
+get '/details' do
+  graphdef
+end
+
+get '/summarize' do
+  settings.sum_controller.persist_summary
+  'success'
 end
