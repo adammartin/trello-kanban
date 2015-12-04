@@ -1,8 +1,11 @@
+require 'card_created_date'
+
 class TrelloRepository
   def initialize member, config
     self.member = member
     self.config = config
     self.board = member.boards.select { |tboard| tboard.name == config['board'] }[0]
+    self.parser = CardCreatedDate.new
   end
 
   def columns
@@ -14,7 +17,13 @@ class TrelloRepository
     end
   end
 
+  def cards
+    board.cards.map do |card|
+      { :id => card.id, :column_id => card.list_id, :created_date => parser.parse(card.id) }
+    end
+  end
+
   private
 
-  attr_accessor :member, :config, :board
+  attr_accessor :member, :config, :board, :parser
 end
