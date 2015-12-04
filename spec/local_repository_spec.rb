@@ -60,4 +60,23 @@ describe LocalRepository do
       verify(file_utils).mkdir_p CONFIG['datadir']
     end
   end
+
+  context ', when daily summarized data is supplied,' do
+    let(:time_unit_card_summary_1) { { 'time'=>'now', 'column_id'=>1 } }
+    let(:summary_write_mode) { 'a:UTF-8' }
+    let(:summary_file_name) { File.join CONFIG['datadir'], 'summary.jsonl' }
+    let(:summary_file) { gimme(File) }
+
+    before(:each) {
+      give(File).open(summary_file_name, summary_write_mode) { |block|
+        block.call summary_file unless block.nil?
+        summary_file
+      }
+    }
+
+    it 'will append the contents in proper jsonl format to the end of the summary file' do
+      repo.save_summary time_unit_card_summary_1
+      verify(summary_file).write time_unit_card_summary_1.to_json + "\n"
+    end
+  end
 end

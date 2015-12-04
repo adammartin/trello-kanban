@@ -6,6 +6,7 @@ class LocalRepository
     self.config = config
     self.file_utils = file_utils
     self.columns_file = File.join config['datadir'], 'columns.json'
+    self.summary_file = File.join config['datadir'], 'summary.jsonl'
     file_utils.mkdir_p config['datadir'] unless File.exist? config['datadir']
   end
 
@@ -18,7 +19,11 @@ class LocalRepository
     []
   end
 
+  def save_summary summary
+    File.open(summary_file, 'a:UTF-8') do |file| file.write summary.to_json + "\n" end
+  end
+
   private
 
-  attr_accessor :config, :file_utils, :columns_file
+  attr_accessor :config, :file_utils, :columns_file, :summary_file
 end
