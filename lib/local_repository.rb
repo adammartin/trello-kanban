@@ -5,9 +5,10 @@ class LocalRepository
   def initialize config, file_utils
     self.config = config
     self.file_utils = file_utils
-    self.columns_file = File.join config['datadir'], 'columns.json'
-    self.summary_file = File.join config['datadir'], 'summary.jsonl'
-    file_utils.mkdir_p config['datadir'] unless File.exist? config['datadir']
+    self.board_dir = File.join config['datadir'], config['board']
+    self.columns_file = File.join board_dir, 'columns.json'
+    self.summary_file = File.join board_dir, 'summary.jsonl'
+    file_utils.mkdir_p board_dir unless File.exist? board_dir
   end
 
   def save_columns columns
@@ -31,5 +32,5 @@ class LocalRepository
 
   private
 
-  attr_accessor :config, :file_utils, :columns_file, :summary_file
+  attr_accessor :config, :file_utils, :columns_file, :summary_file, :board_dir
 end

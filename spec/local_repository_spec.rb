@@ -10,12 +10,13 @@ describe LocalRepository do
   let(:columns) { [column_1, column_2] }
   let(:column_write_mode) { 'w+' }
   let(:column_read_mode) { 'r' }
-  let(:column_file_name) { File.join CONFIG['datadir'], 'columns.json' }
+  let(:board_dir) { File.join CONFIG['datadir'], CONFIG['board'] }
+  let(:column_file_name) { File.join board_dir, 'columns.json' }
   let(:column_file) { gimme(File) }
   let(:repo) { LocalRepository.new CONFIG, file_utils }
 
   before(:each) {
-    give(File).exist?(CONFIG['datadir']) { dir_exists? }
+    give(File).exist?(board_dir) { dir_exists? }
     give(File).exist?(column_file_name) { columns_exists? }
     give(File).open(column_file_name, column_read_mode) { column_file }
     give(File).open(column_file_name, column_write_mode) { |block|
@@ -27,7 +28,7 @@ describe LocalRepository do
 
   it 'will not automatically create a storage directory when it already exists' do
     repo
-    verify_never(file_utils).mkdir_p CONFIG['datadir']
+    verify_never(file_utils).mkdir_p anything
   end
 
   it 'will create a columns file' do
@@ -57,7 +58,7 @@ describe LocalRepository do
 
     it 'will create the storage directory' do
       repo
-      verify(file_utils).mkdir_p CONFIG['datadir']
+      verify(file_utils).mkdir_p board_dir
     end
   end
 
@@ -66,7 +67,7 @@ describe LocalRepository do
     let(:time_unit_card_summary_2) { { 'time' => 'now', 'column_id' => 2 } }
     let(:summary_write_mode) { 'a:UTF-8' }
     let(:summary_read_mode) { 'r:UTF-8' }
-    let(:summary_file_name) { File.join CONFIG['datadir'], 'summary.jsonl' }
+    let(:summary_file_name) { File.join board_dir, 'summary.jsonl' }
     let(:summary_file) { gimme(File) }
 
     before(:each) {
