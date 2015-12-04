@@ -61,9 +61,11 @@ describe LocalRepository do
     end
   end
 
-  context ', when daily summarized data is supplied,' do
-    let(:time_unit_card_summary_1) { { 'time'=>'now', 'column_id'=>1 } }
+  context ', when daily summarized data is exists,' do
+    let(:time_unit_card_summary_1) { { 'time' => 'now', 'column_id' => 1 } }
+    let(:time_unit_card_summary_2) { { 'time' => 'now', 'column_id' => 2 } }
     let(:summary_write_mode) { 'a:UTF-8' }
+    let(:summary_read_mode) { 'r:UTF-8' }
     let(:summary_file_name) { File.join CONFIG['datadir'], 'summary.jsonl' }
     let(:summary_file) { gimme(File) }
 
@@ -72,11 +74,19 @@ describe LocalRepository do
         block.call summary_file unless block.nil?
         summary_file
       }
+      give(File).open(summary_file_name, summary_read_mode) { summary_file }
+      give(summary_file).read {
+        "#{time_unit_card_summary_1.to_json}\n#{time_unit_card_summary_2.to_json}\n"
+      }
     }
 
     it 'will append the contents in proper jsonl format to the end of the summary file' do
       repo.save_summary time_unit_card_summary_1
       verify(summary_file).write time_unit_card_summary_1.to_json + "\n"
+    end
+
+    it 'will read contents of the summary file' do
+      expect(repo.summaries).to eq [time_unit_card_summary_1, time_unit_card_summary_2]
     end
   end
 end

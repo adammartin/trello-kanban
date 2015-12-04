@@ -23,6 +23,12 @@ class LocalRepository
     File.open(summary_file, 'a:UTF-8') do |file| file.write summary.to_json + "\n" end
   end
 
+  def summaries
+    File.open(summary_file, 'r:UTF-8').read.split("\n").map do |line|
+      JSON.parse line
+    end
+  end
+
   private
 
   attr_accessor :config, :file_utils, :columns_file, :summary_file
