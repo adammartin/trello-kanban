@@ -2,7 +2,6 @@ require 'json'
 require 'fileutils'
 
 class LocalRepository
-  # rubocop:disable Metrics/AbcSize
   def initialize config, file_utils
     self.config = config
     self.file_utils = file_utils
@@ -11,7 +10,6 @@ class LocalRepository
     self.summary_file = File.join board_dir, 'summary.jsonl'
     file_utils.mkdir_p board_dir unless File.exist? board_dir
   end
-  # rubocop:enable
 
   def save_columns columns
     File.open(columns_file, 'w+') do |file| file.write columns.to_json end

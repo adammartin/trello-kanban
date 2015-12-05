@@ -30,6 +30,11 @@ describe SummaryController do
 
   context ', when website requests the graph definition,' do
     let(:summary_1) { { 'date_time' => '2015-12-04T01:00:00.000-06:00', column_1_id => 1, column_2_id => 10, column_3_id => 4 } }
+    let(:expected_summary) {
+      expected = summary_1.clone
+      expected['date_time'] = Date.parse(summary_1['date_time']).strftime '%Y-%m-%d'
+      expected.freeze
+    }
     let(:column_1_name) { 'some_name' }
     let(:column_2_name) { 'Word' }
     let(:column_3_name) { 'to your ...' }
@@ -48,11 +53,30 @@ describe SummaryController do
 
     it 'will fill in the data for the graph definition' do
       expected = config['graphdef'].clone
-      expected['data'] = [summary_1]
+      expected['data'] = [expected_summary]
       expected['ykeys'] = [column_1_id, column_2_id, column_3_id]
       expected['labels'] = [column_1_name, column_2_name, column_3_name]
 
       expect(controller.graph_definition).to eq expected
+    end
+
+    context ', when there is an excluded column,' do
+      let(:column_1_name) { config['exclude_columns'][0] }
+      let(:expected_summary) {
+        expected = summary_1.clone
+        expected['date_time'] = Date.parse(summary_1['date_time']).strftime '%Y-%m-%d'
+        expected.delete(column_1_id)
+        expected.freeze
+      }
+
+      it 'will fill in the data for the graph definition' do
+        expected = config['graphdef'].clone
+        expected['data'] = [expected_summary]
+        expected['ykeys'] = [column_2_id, column_3_id]
+        expected['labels'] = [column_2_name, column_3_name]
+
+        expect(controller.graph_definition).to eq expected
+      end
     end
   end
 end
