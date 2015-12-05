@@ -1,0 +1,14 @@
+member: [TRELLO USER ID GOES HERE]
+key: [TRELLO USER KEY GOES HERE SEE: http://www.rubydoc.info/gems/ruby-trello/Trello]
+token: [TRELLO TOKEN GOES HERE SEE: http://www.rubydoc.info/gems/ruby-trello/Trello]
+datadir: [LOCAL DIRECTORY YOU WANT DATA SAVED TO]
+board: [TRELLO BARD YOU WANT TRACKED]
+exclude_columns: ['Value Stories']
+daily_cfd_schedule: 0 0 * * * *
+graphdef:
+   element: 'uv-div'
+   xkey: 'date_time'
+   hideHover: 'auto'
+   resize: true
+   lineColors: ['green', 'yellow', 'red', 'grey', 'blue']
+   parseTime: false

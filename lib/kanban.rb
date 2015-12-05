@@ -3,6 +3,7 @@ require 'json'
 require 'yconfig'
 require 'fileutils'
 require 'trello'
+require 'rufus-scheduler'
 require_relative 'local_repository'
 require_relative 'trello_user_factory'
 require_relative 'trello_repository'
@@ -15,9 +16,13 @@ configure do
   member = TrelloUserFactory.new.generate config, Trello
   lrepo = LocalRepository.new config, FileUtils
   trepo = TrelloRepository.new member, config
-  sum_controller = SummaryController.new lrepo, trepo, config
   set :config, config
-  set :sum_controller, sum_controller
+  set :sum_controller, SummaryController.new(lrepo, trepo, config)
+  set :scheduler, Rufus::Scheduler.new
+end
+
+settings.scheduler.cron settings.config['daily_cfd_schedule'] do
+  settings.sum_controller.persist_summary
 end
 
 get '/metrics' do
@@ -25,15 +30,6 @@ get '/metrics' do
   erb :metrics
 end
 
-get '/details' do
-  graphdef
-end
-
 get '/new_details' do
   settings.sum_controller.graph_definition.to_json
-end
-
-get '/summarize' do
-  settings.sum_controller.persist_summary
-  'success'
 end
