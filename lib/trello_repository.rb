@@ -1,11 +1,13 @@
 require_relative 'card_created_date'
+require_relative 'card_transformer'
+require_relative 'array_transformer'
 
 class TrelloRepository
   def initialize member, config
     self.member = member
     self.config = config
     self.board = member.boards.select { |tboard| tboard.name == config['board'] }[0]
-    self.parser = CardCreatedDate.new
+    self.cards_transformer = ArrayTransformer.new CardTransformer.new
   end
 
   def columns
@@ -18,12 +20,10 @@ class TrelloRepository
   end
 
   def cards
-    board.cards.map do |card|
-      { :id => card.id, :column_id => card.list_id, :created_date => parser.parse(card.id) }
-    end
+    cards_transformer.transform board.cards
   end
 
   private
 
-  attr_accessor :member, :config, :board, :parser
+  attr_accessor :member, :config, :board, :cards_transformer
 end
