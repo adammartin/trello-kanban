@@ -12,8 +12,10 @@ class SummaryController
   end
 
   def persist_summary
+    cards = trello_repo.cards
     local_repo.save_columns trello_repo.columns
-    local_repo.save_summary summarizer.summerize trello_repo.cards
+    local_repo.save_cards cards
+    local_repo.save_summary summarizer.summerize cards
   end
 
   def graph_definition

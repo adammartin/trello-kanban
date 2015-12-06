@@ -28,6 +28,11 @@ describe SummaryController do
     verify(local_repo).save_summary summary
   end
 
+  it 'will save the contents of the cards' do
+    controller.persist_summary
+    verify(local_repo).save_cards cards
+  end
+
   context ', when website requests the graph definition,' do
     let(:summary_1) { { 'date_time' => '2015-12-04T01:00:00.000-06:00', column_1_id => 1, column_2_id => 10, column_3_id => 4 } }
     let(:expected_summary) {
