@@ -10,19 +10,26 @@ describe LocalRepository do
   let(:columns) { [column_1, column_2] }
   let(:column_write_mode) { 'w+' }
   let(:column_read_mode) { 'r' }
+  let(:append_write_mode) { 'a:UTF-8' }
+  let(:jsonl_read_mode) { 'r:UTF-8' }
+  let(:jsonl_overwrite_mode) { 'w+:UTF-8' }
   let(:board_dir) { File.join CONFIG['datadir'], CONFIG['board'] }
   let(:column_file_name) { File.join board_dir, 'columns.json' }
   let(:column_file) { gimme(File) }
   let(:repo) { LocalRepository.new CONFIG, file_utils }
 
+  def give_file_open_behavior file, file_name, file_mode
+    give(File).open(file_name, file_mode) { |block|
+      block.call file unless block.nil?
+      file
+    }
+  end
+
   before(:each) {
     give(File).exist?(board_dir) { dir_exists? }
     give(File).exist?(column_file_name) { columns_exists? }
-    give(File).open(column_file_name, column_read_mode) { column_file }
-    give(File).open(column_file_name, column_write_mode) { |block|
-      block.call column_file unless block.nil?
-      column_file
-    }
+    give_file_open_behavior column_file, column_file_name, column_read_mode
+    give_file_open_behavior column_file, column_file_name, column_write_mode
     give(column_file).read { columns.to_json }
   }
 
@@ -65,20 +72,14 @@ describe LocalRepository do
   context ', when daily summarized data is exists,' do
     let(:time_unit_card_summary_1) { { 'time' => 'now', 'column_id' => 1 } }
     let(:time_unit_card_summary_2) { { 'time' => 'now', 'column_id' => 2 } }
-    let(:summary_write_mode) { 'a:UTF-8' }
-    let(:summary_read_mode) { 'r:UTF-8' }
     let(:summary_file_name) { File.join board_dir, 'summary.jsonl' }
     let(:summary_file) { gimme(File) }
+    let(:summary_file_contents) { "#{time_unit_card_summary_1.to_json}\n#{time_unit_card_summary_2.to_json}\n" }
 
     before(:each) {
-      give(File).open(summary_file_name, summary_write_mode) { |block|
-        block.call summary_file unless block.nil?
-        summary_file
-      }
-      give(File).open(summary_file_name, summary_read_mode) { summary_file }
-      give(summary_file).read {
-        "#{time_unit_card_summary_1.to_json}\n#{time_unit_card_summary_2.to_json}\n"
-      }
+      give_file_open_behavior summary_file, summary_file_name, append_write_mode
+      give_file_open_behavior summary_file, summary_file_name, jsonl_read_mode
+      give(summary_file).read { summary_file_contents }
     }
 
     it 'will append the contents in proper jsonl format to the end of the summary file' do
@@ -88,6 +89,34 @@ describe LocalRepository do
 
     it 'will read contents of the summary file' do
       expect(repo.summaries).to eq [time_unit_card_summary_1, time_unit_card_summary_2]
+    end
+  end
+
+  context ', when card data exists,' do
+    context 'cards directory does not exist' do
+      let(:card_file_name) { File.join board_dir, 'cards.jsonl' }
+      let(:card_file) { gimme(File) }
+      let(:card_1_id) { 'card_uno' }
+      let(:card_2_id) { 'card_dos' }
+      let(:card_1) { { 'id' => card_1_id, 'other' => 'stuff' } }
+      let(:card_2) { { 'id' => card_2_id, 'other' => 'stuff' } }
+      let(:card_file_contents) { "#{card_1.to_json}\n#{card_2.to_json}\n" }
+
+      before(:each) {
+        give_file_open_behavior card_file, card_file_name, jsonl_overwrite_mode
+        give_file_open_behavior card_file, card_file_name, jsonl_read_mode
+        give(card_file).read { card_file_contents }
+      }
+
+      it 'will write the cards to the jsonl content file' do
+        repo.save_cards [card_1, card_2]
+        verify(card_file, 1).write card_1.to_json + "\n"
+        verify(card_file, 1).write card_2.to_json + "\n"
+      end
+
+      it 'will read contents of the card file' do
+        expect(repo.cards).to eq [card_1, card_2]
+      end
     end
   end
 end
