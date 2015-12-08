@@ -4,7 +4,7 @@ class ArrayTransformer
   end
 
   def transform array
-    array.map do |item| item_transformer.transform item end
+    array.map do |item| item_transformer.transform item end.compact
   end
 
   private

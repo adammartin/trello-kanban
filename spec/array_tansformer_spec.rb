@@ -20,4 +20,16 @@ describe ArrayTransformer do
   it 'will transform an array of items into an array of results' do
     expect(transformer.transform [item_1, item_2, item_3]).to eq [result_1, result_2, result_3]
   end
+
+  context ', when one item is transformed to nil' do
+    before(:each) {
+      give(item_transformer).transform(item_1) { result_1 }
+      give(item_transformer).transform(item_2) { result_2 }
+      give(item_transformer).transform(item_3) { nil }
+    }
+
+    it 'will transform an array of items into an array of results' do
+      expect(transformer.transform [item_1, item_2, item_3]).to eq [result_1, result_2]
+    end
+  end
 end
