@@ -22,8 +22,8 @@ class SummaryController
     cols = columns
     graph_def = config['graphdef'].clone
     graph_def['data'] = summaries cols[:deleted]
-    graph_def['ykeys'] = cols[:columns].map do |column| column['id'] end
-    graph_def['labels'] = cols[:columns].map do |column| column['name'] end
+    graph_def['ykeys'] = cols[:columns].map do |column| column['id'] end.reverse
+    graph_def['labels'] = cols[:columns].map do |column| column['name'] end.reverse
     graph_def
   end
 

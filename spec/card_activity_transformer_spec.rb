@@ -69,7 +69,7 @@ describe CardActivityTransformer do
     let(:actions) { [type_activity2, type_activity1, type2_activity1] }
 
     it 'will capture the created and the column dates' do
-      expected = { 'created_date' => created_date_to_i, type1 => time1, type2 => time1+6000 }
+      expected = { 'created_date' => created_date_to_i, type1 => time1, type2 => time1 + 6000 }
       expect(transformer.transform card).to eq expected
     end
   end
@@ -78,7 +78,7 @@ describe CardActivityTransformer do
     let(:actions) { [type_activity2, type_activity1, type2_activity1] }
 
     it 'will capture the created and the column dates' do
-      expected = { 'created_date' => created_date_to_i, type1 => time1, type2 => time1+6000 }
+      expected = { 'created_date' => created_date_to_i, type1 => time1, type2 => time1 + 6000 }
       expect(transformer.transform card).to eq expected
     end
   end
@@ -87,7 +87,7 @@ describe CardActivityTransformer do
     let(:actions) { [type_activity2, type_activity1, type2_activity1, type_activity3, nil_activity1, type2_activity2, type2_activity3, nil_activity2] }
 
     it 'will capture the created and the column dates' do
-      expected = { 'created_date' => created_date_to_i, type1 => time1, type2 => time1+6000 }
+      expected = { 'created_date' => created_date_to_i, type1 => time1, type2 => time1 + 6000 }
       expect(transformer.transform card).to eq expected
     end
   end

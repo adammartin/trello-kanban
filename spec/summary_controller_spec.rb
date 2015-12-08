@@ -59,8 +59,8 @@ describe SummaryController do
     it 'will fill in the data for the graph definition' do
       expected = config['graphdef'].clone
       expected['data'] = [expected_summary]
-      expected['ykeys'] = [column_1_id, column_2_id, column_3_id]
-      expected['labels'] = [column_1_name, column_2_name, column_3_name]
+      expected['ykeys'] = [column_1_id, column_2_id, column_3_id].reverse
+      expected['labels'] = [column_1_name, column_2_name, column_3_name].reverse
 
       expect(controller.graph_definition).to eq expected
     end
@@ -77,8 +77,8 @@ describe SummaryController do
       it 'will fill in the data for the graph definition' do
         expected = config['graphdef'].clone
         expected['data'] = [expected_summary]
-        expected['ykeys'] = [column_2_id, column_3_id]
-        expected['labels'] = [column_2_name, column_3_name]
+        expected['ykeys'] = [column_2_id, column_3_id].reverse
+        expected['labels'] = [column_2_name, column_3_name].reverse
 
         expect(controller.graph_definition).to eq expected
       end
