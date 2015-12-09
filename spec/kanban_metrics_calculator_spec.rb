@@ -1,0 +1,49 @@
+require 'spec_helper'
+require 'kanban_metrics_calculator'
+
+describe KanbanMetricsCalculator do
+  let(:local_repo) { gimme(LocalRepository) }
+  let(:filter) { gimme(CardArrayFilter) }
+  let(:transformer) { gimme(CardActivityTransformer) }
+  let(:lead_time_calc) { gimme(TimeCalculator) }
+  let(:cycle_time_calc) { gimme(TimeCalculator) }
+  let(:lead_time_accumulator) { gimme(TimeAccumulator) }
+  let(:cycle_time_accumulator) { gimme(TimeAccumulator) }
+  let(:lead_start) { CONFIG['board']['lead_time']['start'] }
+  let(:lead_end) { CONFIG['board']['lead_time']['end'] }
+  let(:cycle_start) { CONFIG['board']['cycle_time']['start'] }
+  let(:cycle_end) { CONFIG['board']['cycle_time']['end'] }
+  let(:card_1) { gimme }
+  let(:card_2) { gimme }
+  let(:card_activity_record1) { gimme }
+  let(:card_activity_record2) { gimme }
+  let(:unfiltered_cards) { gimme }
+  let(:filtered_cards) { [card_1, card_2] }
+  let(:cards) { [card_activity_record1, card_activity_record2] }
+  let(:lead_time) { gimme }
+  let(:cycle_time) { gimme }
+  let(:calculator) { KanbanMetricsCalculator.new CONFIG, local_repo }
+
+  before(:each) {
+    give(CardArrayFilter).new(CONFIG['board']['lead_time']['end']) { filter }
+    give(CardActivityTransformer).new { transformer }
+    give(TimeCalculator).new(lead_start, lead_end) { lead_time_calc }
+    give(TimeCalculator).new(cycle_start, cycle_end) { cycle_time_calc }
+    give(TimeAccumulator).new(lead_time_calc) { lead_time_accumulator }
+    give(TimeAccumulator).new(cycle_time_calc) { cycle_time_accumulator }
+    give(local_repo).cards { unfiltered_cards }
+    give(filter).filter(unfiltered_cards) { filtered_cards }
+    give(transformer).transform(card_1) { card_activity_record1 }
+    give(transformer).transform(card_2) { card_activity_record2 }
+    give(lead_time_accumulator).average(cards) { lead_time }
+    give(cycle_time_accumulator).average(cards) { cycle_time }
+  }
+
+  it 'will calculate the average lead time of the cards in the repository' do
+    expect(calculator.lead_time).to eq lead_time
+  end
+
+  it 'will calculate the average cycle time of the cards in the repository' do
+    expect(calculator.cycle_time).to eq cycle_time
+  end
+end

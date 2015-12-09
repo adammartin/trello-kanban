@@ -18,18 +18,18 @@ describe TimeAccumulator do
     give(calculator).calculate(record_3) { result_3 }
   }
 
-  it "will return the average of a single record array" do
+  it 'will return the average of a single record array' do
     expected = result_1
     expect(accumulator.average [record_1]).to eq expected
   end
 
-  it "will return the average of two record array" do
-    expected = (result_1 + result_2).to_f/2
+  it 'will return the average of two record array' do
+    expected = (result_1 + result_2).to_f / 2
     expect(accumulator.average [record_1, record_2]).to eq expected
   end
 
-  it "will return the average of a three record array" do
-    expected = (result_1 + result_2 + result_3).to_f/3
+  it 'will return the average of a three record array' do
+    expected = (result_1 + result_2 + result_3).to_f / 3
     expect(accumulator.average [record_1, record_2, record_3]).to eq expected
   end
 
@@ -37,7 +37,7 @@ describe TimeAccumulator do
     let(:result_3) { nil }
 
     it 'will return the average of the other two records' do
-      expected = (result_1 + result_2).to_f/2
+      expected = (result_1 + result_2).to_f / 2
       expect(accumulator.average [record_1, record_2, record_3]).to eq expected
     end
   end

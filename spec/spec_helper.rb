@@ -8,7 +8,11 @@ CONFIG = {
   'secret' => 'SECRET_VALUE',
   'token' => 'TOKEN_VALUE',
   'datadir' => 'SOME_DATA_DIR',
-  'board' => 'Operations Automation Backlog',
+  'board' => {
+    'name' => 'Operations Automation Backlog',
+    'lead_time' => { 'start' => 'created_date', 'end' => 'Done' },
+    'cycle_time' => { 'start' => 'In Progress', 'end' => 'Done' }
+  },
   'exclude_columns' => ['exclude_1'],
   'graphdef' => { 'some' => 'hash_values' }
 }

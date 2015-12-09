@@ -3,13 +3,13 @@ require 'fileutils'
 
 class LocalRepository
   def initialize config, file_utils
+    board_dir = File.join config['datadir'], config['board']['name']
+    file_utils.mkdir_p board_dir unless File.exist? board_dir
     self.config = config
     self.file_utils = file_utils
-    self.board_dir = File.join config['datadir'], config['board']
     self.columns_file = File.join board_dir, 'columns.json'
     self.summary_file = File.join board_dir, 'summary.jsonl'
     self.card_file = File.join board_dir, 'cards.jsonl'
-    file_utils.mkdir_p board_dir unless File.exist? board_dir
   end
 
   def save_columns columns
@@ -39,7 +39,7 @@ class LocalRepository
 
   private
 
-  attr_accessor :config, :file_utils, :columns_file, :summary_file, :board_dir, :card_file
+  attr_accessor :config, :file_utils, :columns_file, :summary_file, :card_file
 
   READ_RTF8 = 'r:UTF-8'.freeze
   APPEND_RTF8 = 'a:UTF-8'.freeze
