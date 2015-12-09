@@ -13,11 +13,25 @@
       #legend { height: 50px; background: rgba(90, 90, 90, 0.5); width: 60%; min-width: 600px; margin: 0 auto; font-family:sans-serif; }
       #legend span { display: inline-block; padding: 15px 30px; position: relative; }
       #legend span:after { padding-left: 4px; content: '\00a0\00a0\00a0\00a0\00a0\00a0'; text-decoration: line-through; }
+      #metrics { background: rgba(90, 90, 90, 0.5); width: 60%; min-width: 600px; margin: 0 auto; font-family:sans-serif; }
+      table.metric_table { border-spacing: 0.5rem; border-color: #000000; text-align: center; width:100% }
+      th.metric_table { font-weight: bold;
     </style>
   </head>
   <body>
     <div id="uv-div" class="kanban-chart"></div>
     <div id="legend"></div>
+    <div id="metrics">
+      <table class="metric_table">
+	<tr>
+	  <th class="metric_header">Lead Time</th>
+	  <th class="metric_headerheader">Cycle Time</th>
+	</tr>
+	<tr>
+	  <td><%=@lead_time%></td>
+	  <td><%=@cycle_time%></td>
+	</tr>
+    </div>
     <script type="text/javascript">
       $(document).ready(function() {
          init();
