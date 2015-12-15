@@ -6,7 +6,7 @@ class TrelloRepository
   def initialize member, config
     self.member = member
     self.config = config
-    self.board = member.boards.select { |tboard| tboard.name == config['board'] }[0]
+    self.board = member.boards.select { |tboard| tboard.name == config['board']['name'] }[0]
     self.cards_transformer = ArrayTransformer.new CardTransformer.new
   end
 
