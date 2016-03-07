@@ -5,7 +5,7 @@ describe SummaryController do
   let(:local_repo) { gimme(LocalRepository) }
   let(:trello_repo) { gimme(TrelloRepository) }
   let(:summarizer) { gimme(CardSummarizer) }
-  let(:config) { CONFIG.freeze }
+  let(:config) { CONFIG['boards'][0].freeze }
   let(:cards) { 'cards' }
   let(:summary) { 'summary' }
   let(:columns) { 'columns' }

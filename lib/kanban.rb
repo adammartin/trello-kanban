@@ -20,7 +20,7 @@ configure do
   lrepo = LocalRepository.new config['datadir'], config['boards'][0], FileUtils
   trepo = TrelloRepository.new member, config['boards'][0]
   set :config, config
-  set :sum_controller, SummaryController.new(lrepo, trepo, config)
+  set :sum_controller, SummaryController.new(lrepo, trepo, config['boards'][0])
   set :scheduler, Rufus::Scheduler.new
   set :calculator, KanbanMetricsCalculator.new(config, lrepo)
 end
