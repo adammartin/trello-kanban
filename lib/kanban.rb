@@ -4,6 +4,7 @@ require 'yconfig'
 require 'fileutils'
 require 'trello'
 require 'rufus-scheduler'
+require 'uri'
 require_relative 'local_repository'
 require_relative 'trello_user_factory'
 require_relative 'trello_repository'
@@ -16,12 +17,11 @@ configure do
   config_dir = File.join pwd, '..', 'config'
   config = YConfig.new(config_dir).parse('config.yml').freeze
   member = TrelloUserFactory.new.generate config, Trello
-  lrepo = LocalRepository.new config, FileUtils
-  trepo = TrelloRepository.new member, config
+  lrepo = LocalRepository.new config['datadir'], config['boards'][0], FileUtils
+  trepo = TrelloRepository.new member, config['boards'][0]
   set :config, config
   set :sum_controller, SummaryController.new(lrepo, trepo, config)
   set :scheduler, Rufus::Scheduler.new
-  set :lrepo, lrepo
   set :calculator, KanbanMetricsCalculator.new(config, lrepo)
 end
 

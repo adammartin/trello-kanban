@@ -13,10 +13,11 @@ describe LocalRepository do
   let(:append_write_mode) { 'a:UTF-8' }
   let(:jsonl_read_mode) { 'r:UTF-8' }
   let(:jsonl_overwrite_mode) { 'w+:UTF-8' }
-  let(:board_dir) { File.join CONFIG['datadir'], CONFIG['board']['name'] }
+  let(:board_config) { CONFIG['boards'][0] }
+  let(:board_dir) { File.join CONFIG['datadir'], board_config['name'] }
   let(:column_file_name) { File.join board_dir, 'columns.json' }
   let(:column_file) { gimme(File) }
-  let(:repo) { LocalRepository.new CONFIG, file_utils }
+  let(:repo) { LocalRepository.new CONFIG['datadir'], board_config, file_utils }
 
   def give_file_open_behavior file, file_name, file_mode
     give(File).open(file_name, file_mode) { |block|

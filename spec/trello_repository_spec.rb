@@ -25,7 +25,9 @@ describe TrelloRepository do
 
   let(:card_created_parser) { gimme(CardCreatedDate) }
 
-  let(:repo) { TrelloRepository.new member, CONFIG }
+
+  let(:board_config) { CONFIG['boards'][0] }
+  let(:repo) { TrelloRepository.new member, board_config }
 
   before(:each) {
     give(CardTransformer).new { card_transformer }

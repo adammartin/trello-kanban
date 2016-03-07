@@ -2,10 +2,9 @@ require 'json'
 require 'fileutils'
 
 class LocalRepository
-  def initialize config, file_utils
-    board_dir = File.join config['datadir'], config['board']['name']
+  def initialize data_dir, board_config, file_utils
+    board_dir = File.join data_dir, board_config['name']
     file_utils.mkdir_p board_dir unless File.exist? board_dir
-    self.config = config
     self.file_utils = file_utils
     self.columns_file = File.join board_dir, 'columns.json'
     self.summary_file = File.join board_dir, 'summary.jsonl'
@@ -39,7 +38,7 @@ class LocalRepository
 
   private
 
-  attr_accessor :config, :file_utils, :columns_file, :summary_file, :card_file
+  attr_accessor :file_utils, :columns_file, :summary_file, :card_file
 
   READ_RTF8 = 'r:UTF-8'.freeze
   APPEND_RTF8 = 'a:UTF-8'.freeze

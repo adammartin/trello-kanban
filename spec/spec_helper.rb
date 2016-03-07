@@ -13,6 +13,20 @@ CONFIG = {
     'lead_time' => { 'start' => 'created_date', 'end' => 'Done' },
     'cycle_time' => { 'start' => 'In Progress', 'end' => 'Done' }
   },
+  'boards' => [{
+                 'name' => 'Operations Automation Backlog',
+                 'lead_time' => { 'start' => 'created_date', 'end' => 'Done' },
+                 'cycle_time' => { 'start' => 'In Progress', 'end' => 'Done' },
+                 'exclude_columns' => ['exclude_1'],
+                 'graphdef' => { 'some' => 'hash_values' }
+               },
+               {
+                 'name' => 'Example Other Board',
+                 'lead_time' => { 'start' => 'created_date', 'end' => 'Done' },
+                 'cycle_time' => { 'start' => 'In Progress', 'end' => 'Done' },
+                 'exclude_columns' => ['exclude_1'],
+                 'graphdef' => { 'some' => 'hash_values' }
+               }],
   'exclude_columns' => ['exclude_1'],
   'graphdef' => { 'some' => 'hash_values' }
 }
