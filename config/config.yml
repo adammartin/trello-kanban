@@ -2,20 +2,22 @@ member: [TRELLO USER ID GOES HERE]
 key: [TRELLO USER KEY GOES HERE SEE: http://www.rubydoc.info/gems/ruby-trello/Trello]
 token: [TRELLO TOKEN GOES HERE SEE: http://www.rubydoc.info/gems/ruby-trello/Trello]
 datadir: [LOCAL DIRECTORY YOU WANT DATA SAVED TO]
-board:
-   name: [TRELLO BARD YOU WANT TRACKED]
-   lead_time:
-      start: 'created_date'
-      end: [NAME OF COLUMN ON BOARD THAT MARKS 'DONE' STATE]
-   cycle_time:
-      start: [NAME OF COLUMN ON BOARD THAT MARKS THE START OF WORK ON A CARD]
-      end: [NAME OF COLUMN ON BOARD THAT MARKS 'DONE' STATE]
-exclude_columns: ['Value Stories']
-daily_cfd_schedule: 0 0 * * * *
-graphdef:
-   element: 'uv-div'
-   xkey: 'date_time'
-   hideHover: 'auto'
-   resize: true
-   lineColors: ['green', 'yellow', 'red', 'grey', 'blue']
-   parseTime: false
+daily_cfd_schedule: 0 0 * * *
+boards:
+   -
+      name: [TRELLO BOARD YOU WANT TRACKED]
+      type: kanban
+      exclude_columns: [LIST OF COLUMNS BY NAMES TO IGNORE]
+      lead_time:
+         start: 'created_date'
+         end: [NAME OF COLUMN ON BOARD THAT MARKS 'DONE' STATE]
+      cycle_time:
+         start: [NAME OF COLUMN ON BOARD THAT MARKS THE START OF WORK ON A CARD]
+         end: [NAME OF COLUMN ON BOARD THAT MARKS 'DONE' STATE]
+      graphdef:
+         element: 'uv-div'
+         xkey: 'date_time'
+         hideHover: 'auto'
+         resize: true
+         lineColors: ['green', 'yellow', 'red', 'grey', 'blue']
+         parseTime: false
