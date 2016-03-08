@@ -22,7 +22,7 @@ configure do
   set :config, config
   set :sum_controller, SummaryController.new(lrepo, trepo, config['boards'][0])
   set :scheduler, Rufus::Scheduler.new
-  set :calculator, KanbanMetricsCalculator.new(config, lrepo)
+  set :calculator, KanbanMetricsCalculator.new(config['boards'][0], lrepo)
 end
 
 settings.scheduler.cron settings.config['daily_cfd_schedule'] do

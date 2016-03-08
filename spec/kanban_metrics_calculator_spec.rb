@@ -2,6 +2,7 @@ require 'spec_helper'
 require 'kanban_metrics_calculator'
 
 describe KanbanMetricsCalculator do
+  let(:board_config) { CONFIG['boards'][0] }
   let(:local_repo) { gimme(LocalRepository) }
   let(:filter) { gimme(CardArrayFilter) }
   let(:transformer) { gimme(CardActivityTransformer) }
@@ -9,10 +10,10 @@ describe KanbanMetricsCalculator do
   let(:cycle_time_calc) { gimme(TimeCalculator) }
   let(:lead_time_accumulator) { gimme(TimeAccumulator) }
   let(:cycle_time_accumulator) { gimme(TimeAccumulator) }
-  let(:lead_start) { CONFIG['board']['lead_time']['start'] }
-  let(:lead_end) { CONFIG['board']['lead_time']['end'] }
-  let(:cycle_start) { CONFIG['board']['cycle_time']['start'] }
-  let(:cycle_end) { CONFIG['board']['cycle_time']['end'] }
+  let(:lead_start) { board_config['lead_time']['start'] }
+  let(:lead_end) { board_config['lead_time']['end'] }
+  let(:cycle_start) { board_config['cycle_time']['start'] }
+  let(:cycle_end) { board_config['cycle_time']['end'] }
   let(:card_1) { gimme }
   let(:card_2) { gimme }
   let(:card_activity_record1) { gimme }
@@ -22,10 +23,10 @@ describe KanbanMetricsCalculator do
   let(:cards) { [card_activity_record1, card_activity_record2] }
   let(:lead_time) { gimme }
   let(:cycle_time) { gimme }
-  let(:calculator) { KanbanMetricsCalculator.new CONFIG, local_repo }
+  let(:calculator) { KanbanMetricsCalculator.new board_config, local_repo }
 
   before(:each) {
-    give(CardArrayFilter).new(CONFIG['board']['lead_time']['end']) { filter }
+    give(CardArrayFilter).new(board_config['lead_time']['end']) { filter }
     give(CardActivityTransformer).new { transformer }
     give(TimeCalculator).new(lead_start, lead_end) { lead_time_calc }
     give(TimeCalculator).new(cycle_start, cycle_end) { cycle_time_calc }
