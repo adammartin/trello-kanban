@@ -28,7 +28,8 @@ settings.scheduler.cron settings.config['daily_cfd_schedule'] do
 end
 
 get '/metrics' do
-  "This address is no longer valid please use /metrics/[trello_board_name]. Where [trello_board_name] is the name of the board you wish to see."
+  @boards = settings.boards
+  erb :default
 end
 
 get '/metrics/:board' do

@@ -83,3 +83,25 @@ The boards form a list of objects that represent individual boards.
 * Lead Time: The definition of the start and end of how lead time is tracked.  By default the start is configured to be `created_date` and end is the column name you select (for example 'Done' or 'In Progress').
 * Cycle Time: Similarly you define the start and end times.  Per kanban rules this should be when it starts being worked on and when it is done (and that should match the done of Lead Time).
 * Graph Definition: This is graph definition per [Morris JS](http://morrisjs.github.io/morris.js/).  You can play with these settings as you desire.  The necessary bits are concatenated to this config at run time by the system (i.e. column labels).  The most interesting bit is probably the `lineColors` setting.  For each column being tracked you need to list a color.  By convention the right most column (the 'done' column) is listed first and the first column (i.e. 'backlog' for example) is listed last.
+
+```
+boards:
+   -
+      name: [TRELLO BOARD YOU WANT TRACKED]
+      type: kanban
+      exclude_columns: [LIST OF COLUMNS BY NAMES TO IGNORE]
+      lead_time:
+         start: 'created_date'
+         end: [NAME OF COLUMN ON BOARD THAT MARKS 'DONE' STATE]
+      cycle_time:
+         start: [NAME OF COLUMN ON BOARD THAT MARKS THE START OF WORK ON A CARD]
+         end: [NAME OF COLUMN ON BOARD THAT MARKS 'DONE' STATE]
+      graphdef:
+         element: 'uv-div'
+         xkey: 'date_time'
+         hideHover: 'auto'
+         resize: true
+         lineColors: ['green', 'yellow', 'red', 'grey', 'blue']
+         parseTime: false
+
+```

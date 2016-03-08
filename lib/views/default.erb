@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <title>Kanban Metrics</title>
+  </head>
+  <body>
+    <div style="position: absolute;
+		z-index: 15;
+		top: 20%;
+		left: 50%;
+		margin: -100px 0 0 -150px;
+		background: #d3d3d3;">
+    <% @boards.each do |board| %>
+    <a href="/metrics/<%=board['config']['name']%>"
+       style="display: inline-block;
+	      font-family:Georgia,serif;
+	      font-variant: small-caps;
+	      font-weight: 100;
+	      font-size: 2em;
+              padding: 4px;
+              outline: 0;
+              color: #3a599d;"><%=board['config']['name']%></a><br>
+    <% end %>
+    </div>
+  </body>
+</html>
