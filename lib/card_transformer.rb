@@ -9,7 +9,7 @@ class CardTransformer
   end
 
   def transform card
-    { :id => card.id, :column_id => card.list_id, :created_date => parser.parse(card.id), :actions => actions_transformer.transform(card.actions) }
+    { :id => card.id, :name => card.name, :column_id => card.list_id, :created_date => parser.parse(card.id), :actions => actions_transformer.transform(card.actions) }
   end
 
   private

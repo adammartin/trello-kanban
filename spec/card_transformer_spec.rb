@@ -9,8 +9,9 @@ describe CardTransformer do
   let(:action_transformer) { gimme(ActionTransformer) }
   let(:parser) { gimme(CardCreatedDate) }
   let(:actions) { 'some_array_of_actions' }
-  let(:transformed_actions) { 'eresult_of_trans_formation' }
+  let(:transformed_actions) { 'result_of_trans_formation' }
   let(:id) { 'card_id' }
+  let(:name) { 'some_name' }
   let(:column_id) { 'column id' }
   let(:created) { 'some_date' }
   let(:card) { gimme(Card) }
@@ -25,10 +26,11 @@ describe CardTransformer do
     give(card).id { id }
     give(card).list_id { column_id }
     give(card).actions { actions }
+    give(card).name { name }
   }
 
   it 'will parse a Trello::Card into a hash' do
-    expected = { :id => id, :column_id => column_id, :created_date => created, :actions => transformed_actions }
+    expected = { :id => id, :name => name, :column_id => column_id, :created_date => created, :actions => transformed_actions }
     expect(transformer.transform card).to eq expected
   end
 end
