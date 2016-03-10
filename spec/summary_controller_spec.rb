@@ -5,6 +5,7 @@ describe SummaryController do
   let(:local_repo) { gimme(LocalRepository) }
   let(:trello_repo) { gimme(TrelloRepository) }
   let(:summarizer) { gimme(KanbanCardSummarizer) }
+  let(:factory) { gimme(CardSummarizerFactory) }
   let(:config) { CONFIG['boards'][0].freeze }
   let(:cards) { 'cards' }
   let(:summary) { 'summary' }
@@ -14,8 +15,9 @@ describe SummaryController do
   before(:each) {
     give(trello_repo).columns { columns }
     give(trello_repo).cards { cards }
-    give(KanbanCardSummarizer).new { summarizer }
+    give(factory).create(config) { summarizer }
     give(summarizer).summerize(cards) { summary }
+    give(CardSummarizerFactory).new { factory }
   }
 
   it 'will save the contents of the columns' do
