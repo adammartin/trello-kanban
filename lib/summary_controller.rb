@@ -1,14 +1,14 @@
 require 'date'
 require_relative 'local_repository'
 require_relative 'trello_repository'
-require_relative 'card_summarizer'
+require_relative 'summarizer/kanban_card_summarizer'
 
 class SummaryController
   def initialize local_repo, trello_repo, board_config
     self.local_repo = local_repo
     self.trello_repo = trello_repo
     self.board_config = board_config
-    self.summarizer = CardSummarizer.new
+    self.summarizer = KanbanCardSummarizer.new
   end
 
   def persist_summary

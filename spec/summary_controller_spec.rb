@@ -4,7 +4,7 @@ require 'summary_controller'
 describe SummaryController do
   let(:local_repo) { gimme(LocalRepository) }
   let(:trello_repo) { gimme(TrelloRepository) }
-  let(:summarizer) { gimme(CardSummarizer) }
+  let(:summarizer) { gimme(KanbanCardSummarizer) }
   let(:config) { CONFIG['boards'][0].freeze }
   let(:cards) { 'cards' }
   let(:summary) { 'summary' }
@@ -14,7 +14,7 @@ describe SummaryController do
   before(:each) {
     give(trello_repo).columns { columns }
     give(trello_repo).cards { cards }
-    give(CardSummarizer).new { summarizer }
+    give(KanbanCardSummarizer).new { summarizer }
     give(summarizer).summerize(cards) { summary }
   }
 

@@ -33,7 +33,7 @@ describe TrelloRepository do
     give(ArrayTransformer).new(card_transformer) { cards_transformer }
     give(cards_transformer).transform(cards) { transformed_cards }
     give(our_board).id { board_id }
-    give(our_board).name { CONFIG['board']['name'] }
+    give(our_board).name { board_config['name'] }
     give(other_board).name { 'Stop touching me!' }
 
     give(column_1).id { column_1_id }

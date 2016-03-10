@@ -1,4 +1,4 @@
-class CardSummarizer
+class KanbanCardSummarizer
   def summerize cards
     grouped = cards.group_by do |card| card[:column_id] end
     grouped.each do |k, v| grouped[k] = v.length end
