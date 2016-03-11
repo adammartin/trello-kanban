@@ -26,6 +26,18 @@ settings.scheduler.cron settings.config['daily_cfd_schedule'] do
   settings.boards.each do |board| board['controller'].persist_summary end
 end
 
+def render_kanban board_config
+  @graphdef = board_config['controller'].graph_definition.to_json
+  @lead_time = TimeDataFormatter.new.format_time board_config['calculator'].metrics['lead_time']
+  @cycle_time = TimeDataFormatter.new.format_time board_config['calculator'].metrics['cycle_time']
+  erb :metrics
+end
+
+def render_scrum board_config
+  @graphdef = board_config['controller'].graph_definition.to_json
+  erb :scrum_metrics
+end
+
 get '/metrics' do
   @boards = settings.boards
   erb :default
@@ -34,8 +46,6 @@ end
 get '/metrics/:board' do
   selected = URI.unescape params['board']
   board_config = settings.boards.select do |board| board['config']['name'] == selected end[0]
-  @graphdef = board_config['controller'].graph_definition.to_json
-  @lead_time = TimeDataFormatter.new.format_time board_config['calculator'].metrics['lead_time']
-  @cycle_time = TimeDataFormatter.new.format_time board_config['calculator'].metrics['cycle_time']
-  erb :metrics
+  return render_kanban board_config if board_config['config']['type'] == 'kanban'
+  render_scrum board_config if board_config['config']['type'] == 'scrum'
 end

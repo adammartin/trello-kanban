@@ -13,8 +13,9 @@ describe BoardFactory do
   let(:local_repo2) { gimme(LocalRepository) }
   let(:trello_repo2) { gimme(TrelloRepository) }
   let(:controller2) { gimme(SummaryController) }
-  let(:calculator1) { gimme(KanbanMetricsCalculator) }
-  let(:calculator2) { gimme(KanbanMetricsCalculator) }
+  let(:metrics_factory) { gimme(MetricsFactory) }
+  let(:calculator1) { gimme }
+  let(:calculator2) { gimme }
   let(:member) { gimme(Member) }
 
   let(:factory) { BoardFactory.new }
@@ -26,8 +27,9 @@ describe BoardFactory do
     give(TrelloRepository).new(member, config2) { trello_repo2 }
     give(SummaryController).new(local_repo1, trello_repo1, config1) { controller1 }
     give(SummaryController).new(local_repo2, trello_repo2, config2) { controller2 }
-    give(KanbanMetricsCalculator).new(config1, local_repo1) { calculator1 }
-    give(KanbanMetricsCalculator).new(config2, local_repo2) { calculator2 }
+    give(MetricsFactory).new { metrics_factory }
+    give(metrics_factory).create(config1, local_repo1) { calculator1 }
+    give(metrics_factory).create(config2, local_repo2) { calculator2 }
   }
 
   def values_from_array hash_key, array_of_hashes

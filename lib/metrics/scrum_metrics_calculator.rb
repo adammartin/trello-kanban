@@ -3,5 +3,6 @@ class ScrumMetricsCalculator
   end
 
   def metrics
+    {}
   end
 end

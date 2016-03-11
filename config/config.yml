@@ -21,3 +21,20 @@ boards:
          resize: true
          lineColors: ['green', 'yellow', 'red', 'grey', 'blue']
          parseTime: false
+   -
+      name: [TRELLO BOARD YOU WANT TRACKED]
+      type: scrum
+      exclude_columns: [LIST OF COLUMNS BY NAMES TO IGNORE]
+      iteration:
+         start_day: [DAY OF WEEK IN INTEGER 0-6 WHERE 0 IS SUNDAY]
+         length: [NUMBER OF DAYS PER ITERATION]
+      delimiter:
+         start: [DELIMITER START SURROUNDED BY '' SUCH AS '(']
+         end: [DELIMITER END SURROUNDED BY '' SUCH AS '(']
+      graphdef:
+         element: 'uv-div'
+         xkey: 'date_time'
+         hideHover: 'auto'
+         resize: true
+         lineColors: ['green', 'yellow', 'red', 'grey', 'blue']
+         parseTime: false
