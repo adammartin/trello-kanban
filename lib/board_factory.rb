@@ -1,7 +1,7 @@
 require_relative 'local_repository'
 require_relative 'trello_repository'
 require_relative 'summary_controller'
-require_relative 'kanban_metrics_calculator'
+require_relative 'metrics/kanban_metrics_calculator'
 
 class BoardFactory
   def construct member, config, file_utils

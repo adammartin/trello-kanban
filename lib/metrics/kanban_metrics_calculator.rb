@@ -2,7 +2,7 @@ require_relative 'time_calculator'
 require_relative 'time_accumulator'
 require_relative 'card_array_filter'
 require_relative 'card_activity_transformer'
-require_relative 'local_repository'
+require_relative '../local_repository'
 
 class KanbanMetricsCalculator
   def initialize board_config, local_repository

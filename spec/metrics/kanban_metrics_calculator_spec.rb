@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'kanban_metrics_calculator'
+require 'metrics/kanban_metrics_calculator'
 
 describe KanbanMetricsCalculator do
   let(:board_config) { CONFIG['boards'][0] }

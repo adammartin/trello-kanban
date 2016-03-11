@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'card_array_filter'
+require 'metrics/card_array_filter'
 
 describe CardArrayFilter do
   let(:type1) { 'some_column' }

@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'card_activity_transformer'
+require 'metrics/card_activity_transformer'
 
 describe CardActivityTransformer do
   let(:type1) { 'some_column' }

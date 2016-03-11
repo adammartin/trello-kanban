@@ -1,5 +1,5 @@
-require 'time_accumulator'
-require 'time_calculator'
+require 'metrics/time_accumulator'
+require 'metrics/time_calculator'
 require 'spec_helper'
 
 describe TimeAccumulator do

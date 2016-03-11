@@ -10,7 +10,6 @@ require_relative 'board_factory'
 require_relative 'trello_user_factory'
 require_relative 'trello_repository'
 require_relative 'summary_controller'
-require_relative 'kanban_metrics_calculator'
 require_relative 'time_data_formatter'
 
 configure do

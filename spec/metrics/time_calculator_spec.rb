@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'time_calculator'
+require 'metrics/time_calculator'
 
 describe TimeCalculator do
   let(:start_column) { 'first' }
