@@ -36,7 +36,7 @@ get '/metrics/:board' do
   selected = URI.unescape params['board']
   board_config = settings.boards.select do |board| board['config']['name'] == selected end[0]
   @graphdef = board_config['controller'].graph_definition.to_json
-  @lead_time = TimeDataFormatter.new.format_time board_config['calculator'].lead_time
-  @cycle_time = TimeDataFormatter.new.format_time board_config['calculator'].cycle_time
+  @lead_time = TimeDataFormatter.new.format_time board_config['calculator'].metrics['lead_time']
+  @cycle_time = TimeDataFormatter.new.format_time board_config['calculator'].metrics['cycle_time']
   erb :metrics
 end

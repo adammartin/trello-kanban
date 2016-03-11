@@ -41,10 +41,10 @@ describe KanbanMetricsCalculator do
   }
 
   it 'will calculate the average lead time of the cards in the repository' do
-    expect(calculator.lead_time).to eq lead_time
+    expect(calculator.metrics['lead_time']).to eq lead_time
   end
 
   it 'will calculate the average cycle time of the cards in the repository' do
-    expect(calculator.cycle_time).to eq cycle_time
+    expect(calculator.metrics['cycle_time']).to eq cycle_time
   end
 end

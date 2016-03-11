@@ -13,12 +13,8 @@ class KanbanMetricsCalculator
     self.cycle_time_accumulator = TimeAccumulator.new TimeCalculator.new cycle_time_config['start'], cycle_time_config['end']
   end
 
-  def lead_time
-    lead_time_accumulator.average cards
-  end
-
-  def cycle_time
-    cycle_time_accumulator.average cards
+  def metrics
+    { 'lead_time' => lead_time_accumulator.average(cards), 'cycle_time' => cycle_time_accumulator.average(cards) }
   end
 
   private

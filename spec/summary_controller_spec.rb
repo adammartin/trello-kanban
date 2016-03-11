@@ -16,7 +16,7 @@ describe SummaryController do
     give(trello_repo).columns { columns }
     give(trello_repo).cards { cards }
     give(factory).create(config) { summarizer }
-    give(summarizer).summerize(cards) { summary }
+    give(summarizer).summarize(cards) { summary }
     give(CardSummarizerFactory).new { factory }
   }
 
