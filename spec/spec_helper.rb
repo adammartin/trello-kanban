@@ -20,6 +20,7 @@ CONFIG = {
                  'name' => 'Example Other Board',
                  'type' => 'scrum',
                  'delimiter' => { 'start' => '(', 'end' => ')' },
+                 'iteration' => { 'start_day' => 1, 'length' => 2, 'end' => 'Done' },
                  'exclude_columns' => ['exclude_1'],
                  'graphdef' => { 'some' => 'hash_values' }
                }],
