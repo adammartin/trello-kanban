@@ -9,13 +9,20 @@ class ScrumMetricsCalculator
 
   def metrics
     result = transformer.transform local_repo.summaries, local_repo.columns, board_config['iteration']
-    { 'average_velocity' => average_velocity(result), 'last_week' => result.last }
+    { 'average_velocity' => average_velocity(result), 'last_iteration' => last_iteration(result) }
   end
 
   private
   attr_accessor :board_config, :local_repo, :transformer
 
   def average_velocity result
-    result.inject(0,:+).to_f/(result.length.to_f/board_config['iteration']['length'])
+    number_of_iterations = (result.length.to_f/board_config['iteration']['length'])
+    return 0 if result.empty? or number_of_iterations <= 1
+    result.inject(0,:+).to_f/number_of_iterations
+  end
+
+  def last_iteration result
+    return 0 if (result.length.to_f/board_config['iteration']['length']) <= 1
+    result.last(board_config['iteration']['length']).inject(0,:+)
   end
 end
