@@ -26,13 +26,19 @@
 	<tr>
 	  <th class="metric_header">Iteration Start Day</th>
 	  <th class="metric_header">Iteration Length</th>
-	  <th class="metric_header">Avg Velocity</th>
 	</tr>
 	<tr>
 	  <td><%=@start_day%></td>
 	  <td><%=@iter_length%></td>
-	  <td>PENDING</td>
 	</tr>
+	<tr>
+	  <th class="metric_header">Avg Velocity</th>
+	  <th class="metric_header">Prev Week</th>
+	</tr>
+	<tr>
+          <td><%=@avg_velocity%></td>
+          <td><%=@last_velocity%></td>
+        </tr>
     </div>
     <script type="text/javascript">
       $(document).ready(function() {

@@ -37,6 +37,8 @@ def render_scrum board_config
   @graphdef = board_config['controller'].graph_definition.to_json
   @start_day = Date::DAYNAMES[board_config['config']['iteration']['start_day']]
   @iter_length = board_config['config']['iteration']['length']
+  @avg_velocity = board_config['calculator'].metrics['average_velocity']
+  @last_velocity = board_config['calculator'].metrics['last_iteration']
   erb :scrum_metrics
 end
 

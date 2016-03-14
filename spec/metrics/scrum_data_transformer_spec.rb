@@ -40,8 +40,23 @@ describe ScrumDataTransformer do
     end
   end
 
-  it "returns an ordered list of done counts by week" do
+  it "returns an ordered list of velocities by week" do
     our_summaries = summaries (1..31)
     expect(transformer.transform our_summaries, columns, board_config['iteration']).to eq [(count_2 - count_1), (count_3 - count_2), (count_4 - count_3)]
+  end
+
+  context "when many iterations don't have anything done" do
+    let(:end_days) { [
+                       {"date_time"=>"2016-01-04 01:00:00 -0600"},
+                       {"date_time"=>"2016-01-11 01:00:00 -0600"},
+                       {"date_time"=>"2016-01-18 01:00:00 -0600"},
+                       {"date_time"=>"2016-01-25 01:00:00 -0600", done_column_key=> count_4}
+                     ] }
+    let(:count_4) { 8 }
+
+    it "returns an ordered list of velocities by week" do
+      our_summaries = summaries (1..31)
+      expect(transformer.transform our_summaries, columns, board_config['iteration']).to eq [0, 0, (count_4 - 0)]
+    end
   end
 end
