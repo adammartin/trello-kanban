@@ -15,7 +15,7 @@ class ScrumCardSummarizer
   attr_accessor :start_val, :end_val
 
   def sum columns
-    columns.inject 0 do | sum, card | sum + value(card) end
+    columns.inject 0 do |a, e| a + value(e) end
   end
 
   def value card

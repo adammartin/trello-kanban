@@ -15,15 +15,15 @@ describe MetricsFactory do
     give(ScrumMetricsCalculator).new(config2, local_repo) { calculator2 }
   }
 
-  it "will create a kanban metrics calculator" do
+  it 'will create a kanban metrics calculator' do
     expect(factory.create config1, local_repo).to eq calculator1
   end
 
-  it "will create a scrum metrics calculator" do
+  it 'will create a scrum metrics calculator' do
     expect(factory.create config2, local_repo).to eq calculator2
   end
 
-  it "will return nil for an invalid request" do
+  it 'will return nil for an invalid request' do
     bad_config = config1.clone
     bad_config['type'] = 'junk'
     expect(factory.create bad_config, local_repo).to eq nil

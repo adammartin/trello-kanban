@@ -62,9 +62,9 @@ describe ScrumCardSummarizer do
   end
 
   context ', when given a titles that are all invalid' do
-    let(:name1) { "This is the title of a card" }
-    let(:name2) { "This is the title of another card" }
-    let(:name3) { "This is the third title of a card" }
+    let(:name1) { 'This is the title of a card' }
+    let(:name2) { 'This is the title of another card' }
+    let(:name3) { 'This is the third title of a card' }
 
     it 'will properly map and summerize the cards' do
       expected = { 'date_time' => time, column_1_id => 0, column_2_id => 0 }
