@@ -13,4 +13,8 @@ group :development do
   gem 'simplecov', :require => false
   gem 'rake'
   gem 'rubocop'
+  gem 'pry'
+  gem 'pry-nav'
+  gem 'pry-stack_explorer'
+  gem 'pry-doc'
 end
