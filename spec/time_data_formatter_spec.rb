@@ -9,4 +9,8 @@ describe TimeDataFormatter do
   it 'will format time diff in seconds to the right format' do
     expect(formatter.format_time time_diff).to eq expected
   end
+
+  it 'will accept NaN and return NaN' do
+    expect(formatter.format_time Float::NAN).to eq Float::NAN.to_s
+  end
 end
