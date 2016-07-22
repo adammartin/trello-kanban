@@ -12,6 +12,8 @@ For scrum boards we do burn ups with naive velocities based on rolling windows o
 * For a daemonized process execute `bundle exec ruby runner.rb start` or for a forground process run `bundle exec ruby lib\kanban.rb`
 * Properly daemonize or use upstart to convert into a restartable service.
 
+**NOTE**: The first time you run the app the individual page will error because there is no data collected.  This is something I would like to fix and I just haven't had time nor has it caused me any difficulty.  I would love to see someone contribute and handle the problem of first time use elegantly.
+
 # Configuration
 
 Configuration is the mechanism used to pull from the wild wooly world of trello.
