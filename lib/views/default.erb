@@ -2,13 +2,13 @@
   <head>
     <title>Kanban Metrics</title>
   </head>
-  <body>
+  <body style="background: #242424">
     <div style="position: absolute;
 		z-index: 15;
 		top: 20%;
-		left: 50%;
+		left: 40%;
 		margin: -100px 0 0 -150px;
-		background: #d3d3d3;">
+		background: grey">
     <% @boards.each do |board| %>
     <a href="/metrics/<%=board['config']['name']%>"
        style="display: inline-block;
