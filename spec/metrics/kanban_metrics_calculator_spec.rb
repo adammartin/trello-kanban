@@ -10,10 +10,6 @@ describe KanbanMetricsCalculator do
   let(:cycle_time_calc) { gimme(TimeCalculator) }
   let(:lead_time_accumulator) { gimme(TimeAccumulator) }
   let(:cycle_time_accumulator) { gimme(TimeAccumulator) }
-  let(:lead_start) { board_config['lead_time']['start'] }
-  let(:lead_end) { board_config['lead_time']['end'] }
-  let(:cycle_start) { board_config['cycle_time']['start'] }
-  let(:cycle_end) { board_config['cycle_time']['end'] }
   let(:card_1) { gimme }
   let(:card_2) { gimme }
   let(:card_activity_record1) { gimme }
@@ -26,10 +22,10 @@ describe KanbanMetricsCalculator do
   let(:calculator) { KanbanMetricsCalculator.new board_config, local_repo }
 
   before(:each) {
-    give(CardArrayFilter).new(board_config['lead_time']['end']) { filter }
+    give(CardArrayFilter).new(DONE) { filter }
     give(CardActivityTransformer).new { transformer }
-    give(TimeCalculator).new(lead_start, lead_end) { lead_time_calc }
-    give(TimeCalculator).new(cycle_start, cycle_end) { cycle_time_calc }
+    give(TimeCalculator).new(LEAD_START, DONE) { lead_time_calc }
+    give(TimeCalculator).new(CYCLE_START, DONE) { cycle_time_calc }
     give(TimeAccumulator).new(lead_time_calc) { lead_time_accumulator }
     give(TimeAccumulator).new(cycle_time_calc) { cycle_time_accumulator }
     give(local_repo).cards { unfiltered_cards }
