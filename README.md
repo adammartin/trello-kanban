@@ -33,10 +33,10 @@ boards:
       exclude_columns: [LIST OF COLUMNS BY NAMES TO IGNORE]
       lead_time:
          start: 'created_date'
-         end: [NAME OF COLUMN ON BOARD THAT MARKS 'DONE' STATE]
+         end: [NAMES OF COLUMNS ON BOARD THAT MARKS 'DONE' STATE - IN CASE YOU DO A COLUMN NAME CHANGE]
       cycle_time:
-         start: [NAME OF COLUMN ON BOARD THAT MARKS THE START OF WORK ON A CARD]
-         end: [NAME OF COLUMN ON BOARD THAT MARKS 'DONE' STATE]
+         start: [NAMES OF COLUMNS ON BOARD THAT MARKS THE START OF WORK ON A CARD - IN CASE YOU DO A COLUMN NAME CHANGE]
+         end: [NAMES OF COLUMNS ON BOARD THAT MARKS 'DONE' STATE - IN CASE YOU DO A COLUMN NAME CHANGE]
       graphdef:
          element: 'uv-div'
          xkey: 'date_time'
@@ -100,10 +100,10 @@ boards:
       exclude_columns: [LIST OF COLUMNS BY NAMES TO IGNORE]
       lead_time:
          start: 'created_date'
-         end: [NAME OF COLUMN ON BOARD THAT MARKS 'DONE' STATE]
+         end: [NAMES OF COLUMNS ON BOARD THAT MARKS 'DONE' STATE - IN CASE YOU DO A COLUMN NAME CHANGE]
       cycle_time:
-         start: [NAME OF COLUMN ON BOARD THAT MARKS THE START OF WORK ON A CARD]
-         end: [NAME OF COLUMN ON BOARD THAT MARKS 'DONE' STATE]
+         start: [NAMES OF COLUMNS ON BOARD THAT MARKS THE START OF WORK ON A CARD - IN CASE YOU DO A COLUMN NAME CHANGE]
+         end: [NAMES OF COLUMNS ON BOARD THAT MARKS 'DONE' STATE - IN CASE YOU DO A COLUMN NAME CHANGE]
       graphdef:
          element: 'uv-div'
          xkey: 'date_time'

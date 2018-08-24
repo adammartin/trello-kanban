@@ -1,14 +1,16 @@
 class TimeCalculator
-  def initialize start_column, end_column
-    self.start_column = start_column
-    self.end_column = end_column
+  def initialize start_columns, end_columns
+    self.start_columns = start_columns
+    self.end_columns = end_columns
   end
 
   def calculate card_activity
-    card_activity[end_column] - card_activity[start_column] if card_activity[end_column] && card_activity[start_column]
+    start_times = card_activity.slice(*start_columns)
+    end_times = card_activity.slice(*end_columns)
+    end_times.values.first - start_times.values.last unless start_times.empty? or end_times.empty?
   end
 
   private
 
-  attr_accessor :start_column, :end_column
+  attr_accessor :start_columns, :end_columns
 end

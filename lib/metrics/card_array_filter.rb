@@ -13,7 +13,7 @@ class CardArrayFilter
 
   def actions_contain_column? actions
     actions.any? do |action|
-      return action['column']['name'] == required_activity_column if action['column']
+      return required_activity_column.include? action['column']['name'] if action['column']
       false
     end
   end

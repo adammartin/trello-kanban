@@ -22,10 +22,10 @@ describe KanbanMetricsCalculator do
   let(:calculator) { KanbanMetricsCalculator.new board_config, local_repo }
 
   before(:each) {
-    give(CardArrayFilter).new(DONE) { filter }
+    give(CardArrayFilter).new(END_COLUMNS) { filter }
     give(CardActivityTransformer).new { transformer }
-    give(TimeCalculator).new(LEAD_START, DONE) { lead_time_calc }
-    give(TimeCalculator).new(CYCLE_START, DONE) { cycle_time_calc }
+    give(TimeCalculator).new(LEAD_START_COLUMNS, END_COLUMNS) { lead_time_calc }
+    give(TimeCalculator).new(CYCLE_START_COLUMNS, END_COLUMNS) { cycle_time_calc }
     give(TimeAccumulator).new(lead_time_calc) { lead_time_accumulator }
     give(TimeAccumulator).new(cycle_time_calc) { cycle_time_accumulator }
     give(local_repo).cards { unfiltered_cards }

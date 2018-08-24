@@ -9,7 +9,7 @@ describe CardArrayFilter do
   let(:type2_activity1) { { 'column' => { 'name' => type2 } } }
   let(:card1) { { 'actions' => actions } }
   let(:card2) { { 'actions' => actions2 } }
-  let(:filter) { CardArrayFilter.new type1 }
+  let(:filter) { CardArrayFilter.new [type1] }
 
   context ', when passed a single card' do
     let(:actions) { [type_activity1, nil_activity1, type2_activity1] }

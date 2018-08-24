@@ -2,12 +2,15 @@ require 'gimme'
 require 'simplecov'
 require 'json'
 
-LEAD_START = 'lead_start'
-LEAD_START_OLD = 'lead_start_old'
-CYCLE_START = 'cycle_start'
-CYCLE_START_OLD = 'cycle_start_old'
-DONE = 'done'
-DONE_OLD = 'done_old'
+LEAD_START_COLUMN = 'lead_start'
+LEAD_START_OLD_COLUMN = 'lead_start_old'
+LEAD_START_COLUMNS = [LEAD_START_COLUMN, LEAD_START_OLD_COLUMN]
+CYCLE_START_COLUMN = 'cycle_start'
+CYCLE_START_OLD_COLUMN = 'cycle_start_old'
+CYCLE_START_COLUMNS = [CYCLE_START_COLUMN, CYCLE_START_OLD_COLUMN]
+DONE_COLUMN = 'done'
+DONE_OLD_COLUMN = 'done_old'
+END_COLUMNS = [DONE_COLUMN, DONE_OLD_COLUMN]
 
 
 CONFIG = {
@@ -19,8 +22,8 @@ CONFIG = {
   'boards' => [{
     'name' => 'Operations Automation Backlog',
     'type' => 'kanban',
-    'lead_time' => { 'start' => LEAD_START, 'end' => DONE },
-    'cycle_time' => { 'start' => CYCLE_START, 'end' => DONE },
+    'lead_time' => { 'start' => LEAD_START_COLUMNS, 'end' => END_COLUMNS },
+    'cycle_time' => { 'start' => CYCLE_START_COLUMNS, 'end' => END_COLUMNS },
     'exclude_columns' => ['exclude_1'],
     'graphdef' => { 'some' => 'hash_values' }
   },
